@@ -23,11 +23,26 @@ fi
 # 激活虚拟环境并安装依赖
 echo "激活虚拟环境并安装Python依赖..."
 source venv/bin/activate
-pip install -r requirements.txt
+
+# 升级pip到最新版本
+echo "升级pip到最新版本..."
+pip install --upgrade pip
+
+# 安装或升级crawl4ai和其他依赖
+echo "安装/升级crawl4ai和依赖..."
+pip install --upgrade -r requirements.txt
 
 # 安装Playwright浏览器
 echo "安装Playwright浏览器..."
 playwright install
 
+# 显示安装的版本信息
+echo ""
+echo "=== 安装完成 ==="
+echo "Python版本: $(python --version)"
+echo "pip版本: $(pip --version)"
+echo "crawl4ai版本: $(pip show crawl4ai | grep Version | cut -d' ' -f2)"
+
+echo ""
 echo "Python环境设置完成！"
 echo "现在可以运行Kotlin应用程序了：./gradlew run" 

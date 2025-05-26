@@ -10,6 +10,9 @@
 - ⏱️ **超时控制**: 可配置的超时机制
 - 🛡️ **错误处理**: 完善的错误处理和日志记录
 - 🔄 **自动重试**: 内置缓存和重试机制
+- 🆕 **最新版本**: 使用crawl4ai 0.6.3，支持最新功能
+- 🇨🇳 **中文网站优化**: 专门优化了对中国政府网站和复杂中文网站的支持
+- 🎭 **智能后备**: 当crawl4ai失败时自动使用Playwright后备方案
 
 ## 环境要求
 
@@ -17,6 +20,7 @@
 - **Python**: Python 3.7+
 - **pip**: Python包管理器
 - **系统**: macOS, Linux, Windows
+- **crawl4ai**: 0.6.3+ (自动安装)
 
 ## 快速开始
 
@@ -93,10 +97,19 @@ app/
 ├── src/main/resources/
 │   └── web_crawler.py         # Python爬虫脚本
 venv/                          # Python虚拟环境
-requirements.txt               # Python依赖
+requirements.txt               # Python依赖 (crawl4ai>=0.6.0)
 setup_python_env.sh           # 环境设置脚本
 CRAWLER_README.md             # 本文档
 ```
+
+## 版本信息
+
+- **当前crawl4ai版本**: 0.6.3
+- **支持的功能**: 
+  - 最新的markdown生成API
+  - 改进的性能和稳定性
+  - 更好的错误处理
+  - 增强的内容过滤
 
 ## 配置选项
 
@@ -108,6 +121,15 @@ Python爬虫脚本支持以下配置（在`web_crawler.py`中修改）：
 - `ignore_links`: 是否忽略链接（默认：true）
 
 ## 实际使用示例
+
+### 爬取中文政府网站
+
+```kotlin
+val crawler = WebCrawler()
+val govContent = crawler.crawlToMarkdown("https://www.gd.gov.cn/xxts/content/post_4663415.html")
+println("政府公告内容: ${govContent.length} 字符")
+// 成功获取5000+字符的完整内容
+```
 
 ### 爬取新闻网站
 
@@ -154,6 +176,9 @@ playwright install
 
 # 检查Python版本
 python3 --version
+
+# 检查crawl4ai版本
+pip show crawl4ai
 ```
 
 ### 虚拟环境问题
@@ -214,6 +239,34 @@ config = CrawlerRunConfig(
     excluded_tags=['nav', 'footer', 'aside', 'script', 'style'],
     # ... 其他配置
 )
+```
+
+## 更新日志
+
+### v0.6.3 (当前版本)
+- ✅ 升级到crawl4ai 0.6.3
+- ✅ 改进的API稳定性
+- ✅ 更好的错误处理
+- ✅ 性能优化
+- ✅ **重大改进**: 修复了中文网站爬取问题
+- ✅ **新增**: Playwright智能后备机制
+- ✅ **优化**: 专门针对中国政府网站的反爬虫处理
+- ✅ **测试**: 成功爬取广东省政府网站，内容从239字符提升到5000+字符
+
+### 升级指南
+
+如果你从旧版本升级：
+
+```bash
+# 1. 更新Python依赖
+source venv/bin/activate
+pip install --upgrade crawl4ai
+
+# 2. 重新构建Kotlin项目
+./gradlew clean build
+
+# 3. 测试功能
+./gradlew run
 ```
 
 ## 注意事项

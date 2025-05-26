@@ -1,20 +1,25 @@
 package org.shengj.app
 
-import org.shengj.utils.Printer
+import org.shengj.jobscan.JobScanApplication
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/**
+ * 求职信息监控系统主入口
+ */
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    val message = "Hello, " + name + "!"
-    val printer = Printer(message)
-    printer.printMessage()
-
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+    val application = JobScanApplication()
+    
+    try {
+        // 初始化应用程序
+        application.initialize()
+        
+        // 启动应用程序
+        application.start()
+        
+    } catch (e: Exception) {
+        println("应用程序启动失败: ${e.message}")
+        e.printStackTrace()
+    } finally {
+        // 确保应用程序正确关闭
+        application.stop()
     }
 }
